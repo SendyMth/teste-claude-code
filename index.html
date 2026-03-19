@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MercadoShop - Tudo que você precisa</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Proxima Nova', Arial, sans-serif; background: #ebebeb; color: #333; }
+
+    /* ── HEADER ── */
+    header {
+      background: #fff159;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,.15);
+    }
+    .header-top {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      height: 56px;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      color: #333;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .logo span { color: #3483fa; }
+    .search-bar {
+      flex: 1;
+      display: flex;
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      max-width: 700px;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 10px 14px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+    .search-bar button {
+      background: #fff;
+      border: none;
+      padding: 0 16px;
+      cursor: pointer;
+      font-size: 18px;
+      color: #666;
+      border-left: 1px solid #eee;
+      transition: background .2s;
+    }
+    .search-bar button:hover { background: #f5f5f5; }
+    .header-actions { display: flex; gap: 18px; align-items: center; margin-left: auto; }
+    .header-actions a {
+      font-size: 13px;
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .header-actions a:hover { text-decoration: underline; }
+    .btn-cart {
+      background: #3483fa;
+      color: #fff !important;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: 600 !important;
+      transition: background .2s;
+    }
+    .btn-cart:hover { background: #2968c8 !important; text-decoration: none !important; }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    nav a {
+      font-size: 13px;
+      color: #333;
+      text-decoration: none;
+      padding: 10px 14px;
+      white-space: nowrap;
+      display: block;
+      transition: color .2s;
+    }
+    nav a:hover { color: #3483fa; }
+
+    /* ── MAIN ── */
+    main { max-width: 1200px; margin: 0 auto; padding: 20px 12px; }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .hero-main {
+      background: linear-gradient(135deg, #3483fa 0%, #1a5fc8 100%);
+      border-radius: 6px;
+      padding: 36px 32px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+    }
+    .hero-main::after {
+      content: '📦';
+      position: absolute;
+      right: 24px;
+      bottom: 16px;
+      font-size: 100px;
+      opacity: .18;
+    }
+    .hero-main .tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: .85;
+      margin-bottom: 8px;
+    }
+    .hero-main h1 { font-size: 26px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
+    .hero-main p { font-size: 14px; opacity: .9; margin-bottom: 20px; }
+    .btn-hero {
+      display: inline-block;
+      background: #fff;
+      color: #3483fa;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: 4px;
+      text-decoration: none;
+      width: fit-content;
+      transition: box-shadow .2s;
+    }
+    .btn-hero:hover { box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+    .hero-side { display: flex; flex-direction: column; gap: 12px; }
+    .hero-card {
+      border-radius: 6px;
+      padding: 20px 24px;
+      color: #fff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card.yellow { background: linear-gradient(135deg, #f5a623 0%, #e8881a 100%); }
+    .hero-card.green  { background: linear-gradient(135deg, #00a650 0%, #007a3d 100%); }
+    .hero-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+    .hero-card p { font-size: 12px; opacity: .9; }
+    .hero-card .emoji { font-size: 36px; margin-bottom: 6px; }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title a { font-size: 13px; font-weight: 400; color: #3483fa; margin-left: auto; text-decoration: none; }
+    .section-title a:hover { text-decoration: underline; }
+
+    /* ── CATEGORY STRIP ── */
+    .categories {
+      background: #fff;
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+    }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 12px;
+    }
+    .cat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      color: #333;
+      padding: 10px 6px;
+      border-radius: 6px;
+      transition: background .2s;
+    }
+    .cat-item:hover { background: #f5f5f5; }
+    .cat-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+    .cat-item span { font-size: 11px; text-align: center; font-weight: 500; line-height: 1.3; }
+
+    /* ── PRODUCT GRID ── */
+    .product-section { background: #fff; border-radius: 6px; padding: 20px 24px; margin-bottom: 20px; }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2px;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 6px;
+      padding: 16px;
+      cursor: pointer;
+      transition: box-shadow .2s, transform .15s;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid #f0f0f0;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
+      transform: translateY(-2px);
+      z-index: 1;
+      position: relative;
+    }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: contain;
+      margin-bottom: 12px;
+      font-size: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f8f8;
+      border-radius: 4px;
+    }
+    .badge-free { font-size: 10px; font-weight: 700; color: #00a650; letter-spacing: .3px; margin-bottom: 4px; }
+    .product-name { font-size: 13px; color: #333; margin-bottom: 8px; line-height: 1.4; flex: 1; }
+    .old-price { font-size: 12px; color: #999; text-decoration: line-through; }
+    .price { font-size: 22px; font-weight: 300; color: #333; }
+    .price strong { font-size: 14px; font-weight: 400; vertical-align: super; font-size: 12px; }
+    .discount { font-size: 12px; color: #00a650; font-weight: 700; margin-left: 6px; }
+    .installment { font-size: 12px; color: #00a650; margin-top: 4px; }
+    .stars { color: #f5a623; font-size: 12px; margin-top: 8px; }
+    .stars span { color: #888; margin-left: 4px; }
+
+    /* ── BANNER STRIP ── */
+    .banner-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .strip-card {
+      border-radius: 6px;
+      padding: 22px 20px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: filter .2s;
+    }
+    .strip-card:hover { filter: brightness(1.07); }
+    .strip-card .icon { font-size: 36px; }
+    .strip-card small { font-size: 12px; font-weight: 400; opacity: .9; display: block; margin-top: 2px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #fff;
+      border-top: 1px solid #e5e5e5;
+      margin-top: 30px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .footer-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 14px; color: #333; }
+    .footer-col a { display: block; font-size: 13px; color: #666; text-decoration: none; margin-bottom: 8px; }
+    .footer-col a:hover { color: #3483fa; }
+    .footer-bottom {
+      background: #ebebeb;
+      text-align: center;
+      padding: 14px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-side { flex-direction: row; }
+      .banner-strip { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .header-actions .extra { display: none; }
+    }
+    @media (max-width: 480px) {
+      .footer-inner { grid-template-columns: 1fr; }
+      .hero-main h1 { font-size: 20px; }
+      .hero-side { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ HEADER ══════════════════════ -->
+<header>
+  <div class="header-top">
+    <a href="#" class="logo">Mercado<span>Shop</span></a>
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar produtos, marcas e muito mais…" />
+      <button>🔍</button>
+    </div>
+    <div class="header-actions">
+      <a href="#" class="extra">Entrar</a>
+      <a href="#" class="extra">Crie sua conta</a>
+      <a href="#" class="extra">Minhas compras</a>
+      <a href="#" class="btn-cart">🛒 Carrinho</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════ NAV ══════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#">Categorias</a>
+    <a href="#">Ofertas do Dia</a>
+    <a href="#">Histórico</a>
+    <a href="#">Supermercado</a>
+    <a href="#">Moda</a>
+    <a href="#">Eletrônicos</a>
+    <a href="#">Livros</a>
+    <a href="#">Esporte e Lazer</a>
+    <a href="#">Beleza e Saúde</a>
+    <a href="#">Casa e Jardim</a>
+    <a href="#">Bebês</a>
+    <a href="#">Mais</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════ MAIN ══════════════════════ -->
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-main">
+      <p class="tag">⚡ Oferta relâmpago</p>
+      <h1>Até 60% OFF em Eletrônicos</h1>
+      <p>Smartphones, notebooks, fones e muito mais com frete grátis.</p>
+      <a href="#" class="btn-hero">Ver todas as ofertas</a>
+    </div>
+    <div class="hero-side">
+      <div class="hero-card yellow">
+        <div class="emoji">👗</div>
+        <h3>Moda até 50% OFF</h3>
+        <p>Roupas, calçados e acessórios</p>
+      </div>
+      <div class="hero-card green">
+        <div class="emoji">🚚</div>
+        <h3>Frete Grátis</h3>
+        <p>Em milhares de produtos com Mercado Envios</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORIAS -->
+  <div class="categories">
+    <div class="section-title">Compre por categoria</div>
+    <div class="cat-grid">
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#e8f0fe">📱</div>
+        <span>Celulares</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#fce8e6">👗</div>
+        <span>Moda</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#e6f4ea">🏠</div>
+        <span>Casa</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#fff8e1">💻</div>
+        <span>Informática</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#f3e8fd">🎮</div>
+        <span>Games</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#e8f5e9">🏋️</div>
+        <span>Esporte</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#fef3c7">🚗</div>
+        <span>Autos</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#fee2e2">❤️</div>
+        <span>Saúde</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#ede9fe">📚</div>
+        <span>Livros</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#fdf2f8">🧸</div>
+        <span>Brinquedos</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#ecfdf5">🌱</div>
+        <span>Jardim</span>
+      </a>
+      <a href="#" class="cat-item">
+        <div class="cat-icon" style="background:#eff6ff">🍳</div>
+        <span>Cozinha</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- BANNER STRIP -->
+  <div class="banner-strip">
+    <div class="strip-card" style="background:linear-gradient(135deg,#3483fa,#1a5fc8)">
+      <div class="icon">💳</div>
+      <div>
+        Mercado Pago
+        <small>Pague em até 12x sem juros</small>
+      </div>
+    </div>
+    <div class="strip-card" style="background:linear-gradient(135deg,#00a650,#007a3d)">
+      <div class="icon">🚚</div>
+      <div>
+        Frete Grátis
+        <small>Em milhares de produtos</small>
+      </div>
+    </div>
+    <div class="strip-card" style="background:linear-gradient(135deg,#f5a623,#c97f10)">
+      <div class="icon">🔒</div>
+      <div>
+        Compra Garantida
+        <small>Receba ou devolvemos seu dinheiro</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- OFERTAS DO DIA -->
+  <div class="product-section">
+    <div class="section-title">
+      ⚡ Ofertas do dia
+      <a href="#">Ver todas as ofertas →</a>
+    </div>
+    <div class="product-grid">
+
+      <a href="#" class="product-card">
+        <div class="product-img">📱</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Smartphone Samsung Galaxy A55 5G 256GB 8GB RAM</div>
+        <div class="old-price">R$ 2.199,99</div>
+        <div class="price"><strong>R$</strong> 1.649<strong>,99</strong> <span class="discount">25% OFF</span></div>
+        <div class="installment">em 12x de R$ 137,49</div>
+        <div class="stars">★★★★★ <span>(2.341)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">💻</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Notebook Lenovo IdeaPad 15" Intel Core i5 16GB SSD 512GB</div>
+        <div class="old-price">R$ 3.499,00</div>
+        <div class="price"><strong>R$</strong> 2.799<strong>,00</strong> <span class="discount">20% OFF</span></div>
+        <div class="installment">em 12x de R$ 233,25</div>
+        <div class="stars">★★★★☆ <span>(876)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">🎧</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Fone Bluetooth Sony WH-1000XM5 Cancelamento de Ruído</div>
+        <div class="old-price">R$ 1.999,00</div>
+        <div class="price"><strong>R$</strong> 1.299<strong>,00</strong> <span class="discount">35% OFF</span></div>
+        <div class="installment">em 12x de R$ 108,25</div>
+        <div class="stars">★★★★★ <span>(1.520)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">📺</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Smart TV LG 55" 4K OLED evo ThinQ AI WebOS</div>
+        <div class="old-price">R$ 5.799,00</div>
+        <div class="price"><strong>R$</strong> 3.999<strong>,00</strong> <span class="discount">31% OFF</span></div>
+        <div class="installment">em 12x de R$ 333,25</div>
+        <div class="stars">★★★★★ <span>(643)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">⌚</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Smartwatch Apple Watch Series 9 GPS 45mm Alumínio</div>
+        <div class="old-price">R$ 3.299,00</div>
+        <div class="price"><strong>R$</strong> 2.649<strong>,00</strong> <span class="discount">20% OFF</span></div>
+        <div class="installment">em 12x de R$ 220,75</div>
+        <div class="stars">★★★★★ <span>(3.102)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">🎮</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Console PlayStation 5 Sony + 2 Controles DualSense</div>
+        <div class="old-price">R$ 4.499,00</div>
+        <div class="price"><strong>R$</strong> 3.799<strong>,00</strong> <span class="discount">16% OFF</span></div>
+        <div class="installment">em 12x de R$ 316,58</div>
+        <div class="stars">★★★★★ <span>(4.789)</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- MAIS VENDIDOS -->
+  <div class="product-section">
+    <div class="section-title">
+      🔥 Mais Vendidos
+      <a href="#">Ver mais →</a>
+    </div>
+    <div class="product-grid">
+
+      <a href="#" class="product-card">
+        <div class="product-img">👟</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Tênis Nike Air Max 270 Masculino Original</div>
+        <div class="price"><strong>R$</strong> 599<strong>,99</strong></div>
+        <div class="installment">em 10x de R$ 59,99</div>
+        <div class="stars">★★★★★ <span>(5.234)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">🖥️</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Monitor Gamer 27" LG Full HD 144Hz IPS 1ms</div>
+        <div class="old-price">R$ 1.499,00</div>
+        <div class="price"><strong>R$</strong> 999<strong>,00</strong> <span class="discount">33% OFF</span></div>
+        <div class="installment">em 12x de R$ 83,25</div>
+        <div class="stars">★★★★☆ <span>(1.876)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">🏋️</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Kit Halter Musculação 20kg Emborrachado com Suporte</div>
+        <div class="price"><strong>R$</strong> 349<strong>,90</strong></div>
+        <div class="installment">em 6x de R$ 58,31</div>
+        <div class="stars">★★★★★ <span>(2.109)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">📷</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Câmera Canon EOS R50 Mirrorless 24.2MP Kit 18-45mm</div>
+        <div class="old-price">R$ 4.999,00</div>
+        <div class="price"><strong>R$</strong> 3.899<strong>,00</strong> <span class="discount">22% OFF</span></div>
+        <div class="installment">em 12x de R$ 324,91</div>
+        <div class="stars">★★★★★ <span>(987)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">🍳</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Air Fryer Philips Walita XXL Digital 7,3L 2000W</div>
+        <div class="old-price">R$ 799,00</div>
+        <div class="price"><strong>R$</strong> 549<strong>,90</strong> <span class="discount">31% OFF</span></div>
+        <div class="installment">em 10x de R$ 54,99</div>
+        <div class="stars">★★★★★ <span>(7.654)</span></div>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-img">🎒</div>
+        <div class="badge-free">▶ Frete grátis</div>
+        <div class="product-name">Mochila Notebook Masculina Impermeável 30L USB Carregador</div>
+        <div class="price"><strong>R$</strong> 149<strong>,90</strong></div>
+        <div class="installment">em 3x de R$ 49,96</div>
+        <div class="stars">★★★★★ <span>(3.421)</span></div>
+      </a>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Sobre o MercadoShop</h4>
+      <a href="#">Quem somos</a>
+      <a href="#">Trabalhe conosco</a>
+      <a href="#">Sustentabilidade</a>
+      <a href="#">Imprensa</a>
+      <a href="#">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Comprar</h4>
+      <a href="#">Como comprar</a>
+      <a href="#">Meios de pagamento</a>
+      <a href="#">Promoções</a>
+      <a href="#">Lojas oficiais</a>
+      <a href="#">Supermercado</a>
+    </div>
+    <div class="footer-col">
+      <h4>Vender</h4>
+      <a href="#">Como vender</a>
+      <a href="#">Anuncie seus produtos</a>
+      <a href="#">Soluções para empresas</a>
+      <a href="#">MercadoShips</a>
+      <a href="#">Central do Vendedor</a>
+    </div>
+    <div class="footer-col">
+      <h4>Ajuda</h4>
+      <a href="#">Central de ajuda</a>
+      <a href="#">Fale conosco</a>
+      <a href="#">Segurança</a>
+      <a href="#">Privacidade</a>
+      <a href="#">Termos e condições</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 MercadoShop. Todos os direitos reservados. CNPJ: 00.000.000/0001-00
+  </div>
+</footer>
+
+</body>
+</html>
