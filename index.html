@@ -3,1037 +3,1006 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MercadoShop - Tudo que você precisa</title>
+  <title>MercadoShop</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --yellow: #fff159;
-      --blue:   #3483fa;
-      --blue-d: #1a5fc8;
-      --green:  #00a650;
-      --orange: #f5a623;
-      --bg:     #f0f0f0;
-      --white:  #ffffff;
-      --text:   #1a1a2e;
-      --muted:  #6b7280;
-      --radius: 12px;
-      --shadow: 0 4px 24px rgba(0,0,0,.10);
-      --shadow-lg: 0 8px 40px rgba(0,0,0,.16);
+      --black:   #1d1d1f;
+      --white:   #ffffff;
+      --off:     #f5f5f7;
+      --blue:    #0071e3;
+      --blue-h:  #0077ed;
+      --muted:   #6e6e73;
+      --border:  #d2d2d7;
+      --yellow:  #fff159;
+      --green:   #1d7a45;
+      --radius:  18px;
+      --max:     980px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--white);
+      color: var(--black);
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ══ SCROLL BAR ══ */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 99px; }
-
-    /* ══ HEADER ══ */
-    header {
-      background: var(--yellow);
+    /* ═══════════════════════ NAV ═══════════════════════ */
+    #nav {
       position: sticky;
       top: 0;
-      z-index: 200;
-      box-shadow: 0 2px 12px rgba(0,0,0,.12);
-      transition: box-shadow .3s;
-    }
-    header.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.2); }
-
-    .header-top {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 20px;
+      z-index: 300;
+      background: rgba(255,255,255,.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      height: 48px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      height: 62px;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: 900;
-      color: var(--text);
-      text-decoration: none;
-      white-space: nowrap;
-      letter-spacing: -.5px;
-    }
-    .logo span { color: var(--blue); }
-
-    .search-bar {
-      flex: 1;
-      max-width: 680px;
-      display: flex;
-      background: var(--white);
-      border-radius: 8px;
-      border: 2px solid transparent;
-      overflow: hidden;
-      transition: border-color .25s, box-shadow .25s;
-    }
-    .search-bar:focus-within {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(52,131,250,.18);
-    }
-    .search-bar input {
-      flex: 1;
-      padding: 11px 16px;
-      border: none;
-      outline: none;
-      font-size: 14px;
-      font-family: inherit;
-      color: var(--text);
-    }
-    .search-bar button {
-      background: var(--blue);
-      border: none;
-      padding: 0 20px;
-      cursor: pointer;
-      font-size: 16px;
-      color: #fff;
-      transition: background .2s;
-    }
-    .search-bar button:hover { background: var(--blue-d); }
-
-    .header-actions { display: flex; gap: 14px; align-items: center; margin-left: auto; }
-    .header-actions a {
-      font-size: 13px;
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      white-space: nowrap;
-      padding: 6px 10px;
-      border-radius: 6px;
-      transition: background .2s;
-    }
-    .header-actions a:hover { background: rgba(0,0,0,.08); }
-
-    .btn-cart {
-      background: var(--blue) !important;
-      color: #fff !important;
-      font-weight: 600 !important;
-      border-radius: 8px !important;
-      padding: 8px 18px !important;
-      transition: background .2s, transform .15s, box-shadow .2s !important;
-      position: relative;
-    }
-    .btn-cart:hover {
-      background: var(--blue-d) !important;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(52,131,250,.4) !important;
-    }
-    .cart-badge {
-      position: absolute;
-      top: -6px; right: -6px;
-      background: #e53935;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      border: 2px solid var(--yellow);
-      animation: pop .3s ease;
-    }
-    @keyframes pop {
-      0% { transform: scale(0); }
-      70% { transform: scale(1.25); }
-      100% { transform: scale(1); }
-    }
-
-    /* ══ NAV ══ */
-    nav {
-      background: var(--white);
-      border-bottom: 1px solid #e8e8e8;
+      transition: background .3s;
     }
     .nav-inner {
-      max-width: 1280px;
+      width: 100%;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 22px;
       display: flex;
-      overflow-x: auto;
-      scrollbar-width: none;
+      align-items: center;
+      gap: 0;
     }
-    .nav-inner::-webkit-scrollbar { display: none; }
-    .nav-inner a {
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -.5px;
+      margin-right: auto;
+    }
+    .nav-logo em { color: var(--blue); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links a {
+      font-size: 12px;
+      color: var(--black);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { background: rgba(0,0,0,.06); }
+    .nav-search {
+      display: flex;
+      align-items: center;
+      background: rgba(0,0,0,.06);
+      border-radius: 8px;
+      padding: 5px 12px;
+      gap: 7px;
+      margin-left: 16px;
+      transition: background .2s;
+    }
+    .nav-search:focus-within { background: rgba(0,0,0,.1); }
+    .nav-search input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 12px;
+      font-family: inherit;
+      width: 160px;
+      color: var(--black);
+    }
+    .nav-search span { font-size: 13px; color: var(--muted); }
+    .nav-cart {
+      margin-left: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      position: relative;
+      padding: 4px;
+    }
+    .nav-cart-badge {
+      position: absolute;
+      top: -2px; right: -4px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 99px;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--white);
+    }
+
+    /* ═══════════════════════ PROMO BANNER (yellow strip) ═══════════════════════ */
+    .promo-strip {
+      background: var(--yellow);
+      text-align: center;
+      padding: 10px 20px;
       font-size: 13px;
       font-weight: 500;
-      color: #555;
-      text-decoration: none;
-      padding: 11px 14px;
-      white-space: nowrap;
-      display: block;
-      position: relative;
-      transition: color .2s;
+      color: var(--black);
     }
-    .nav-inner a::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 14px; right: 14px;
-      height: 2px;
-      background: var(--blue);
-      border-radius: 2px 2px 0 0;
-      transform: scaleX(0);
-      transition: transform .25s ease;
-    }
-    .nav-inner a:hover { color: var(--blue); }
-    .nav-inner a:hover::after { transform: scaleX(1); }
+    .promo-strip a { color: var(--blue); text-decoration: none; font-weight: 600; }
 
-    /* ══ MAIN ══ */
-    main { max-width: 1280px; margin: 0 auto; padding: 20px 20px 40px; }
-
-    /* ══ HERO ══ */
+    /* ═══════════════════════ HERO ═══════════════════════ */
     .hero {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .hero-main {
-      border-radius: var(--radius);
-      padding: 42px 38px;
-      color: #fff;
+      background: var(--black);
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
-      position: relative;
-      overflow: hidden;
-      min-height: 240px;
-      background: linear-gradient(135deg, #1e3a8a 0%, #3483fa 60%, #60a5fa 100%);
-      background-size: 200% 200%;
-      animation: gradientShift 6s ease infinite;
-    }
-    @keyframes gradientShift {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* floating orbs */
-    .hero-main::before {
-      content: '';
-      position: absolute;
-      width: 260px; height: 260px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.07);
-      top: -80px; right: -60px;
-      animation: float 7s ease-in-out infinite;
-    }
-    .hero-main::after {
-      content: '';
-      position: absolute;
-      width: 160px; height: 160px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.05);
-      bottom: -40px; right: 80px;
-      animation: float 5s ease-in-out infinite reverse;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50%       { transform: translateY(-16px) scale(1.05); }
-    }
-
-    .hero-emoji {
-      font-size: 80px;
-      position: absolute;
-      right: 32px; bottom: 20px;
-      opacity: .22;
-      animation: float 4s ease-in-out infinite;
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,.3));
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,.2);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,.3);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .8px;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 99px;
-      margin-bottom: 14px;
-      width: fit-content;
-    }
-    .hero-tag .dot {
-      width: 6px; height: 6px;
-      background: #ffd700;
-      border-radius: 50%;
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: .5; transform: scale(.7); }
-    }
-
-    .hero-main h1 {
-      font-size: 28px;
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 10px;
-      position: relative;
-    }
-    .hero-main > p { font-size: 14px; opacity: .88; margin-bottom: 24px; position: relative; }
-
-    .btn-hero {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #fff;
-      color: var(--blue);
-      font-weight: 700;
-      font-size: 14px;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      width: fit-content;
-      position: relative;
-      transition: transform .2s, box-shadow .2s;
-    }
-    .btn-hero:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,.25);
-    }
-    .btn-hero::after { content: '→'; }
-
-    .hero-side { display: flex; flex-direction: column; gap: 14px; }
-
-    .hero-card {
-      border-radius: var(--radius);
-      padding: 22px 24px;
-      color: #fff;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform .25s, box-shadow .25s;
-    }
-    .hero-card:hover { transform: translateY(-3px) scale(1.01); box-shadow: var(--shadow-lg); }
-    .hero-card.yellow { background: linear-gradient(135deg, #f59e0b, #d97706); }
-    .hero-card.green  { background: linear-gradient(135deg, #10b981, #047857); }
-    .hero-card .card-emoji {
-      font-size: 44px;
-      margin-bottom: 8px;
-      display: block;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,.2));
-    }
-    .hero-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
-    .hero-card p { font-size: 12px; opacity: .9; }
-
-    /* ══ COUNTDOWN ══ */
-    .countdown-bar {
-      background: linear-gradient(90deg, #1a1a2e, #16213e);
-      border-radius: var(--radius);
-      padding: 14px 24px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      color: #fff;
-    }
-    .countdown-bar .cb-label {
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-    }
-    .cb-label .lightning { font-size: 18px; animation: pulse 1s ease-in-out infinite; }
-    .countdown-units { display: flex; gap: 8px; align-items: center; }
-    .cd-unit {
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 8px;
-      padding: 6px 12px;
       text-align: center;
-      min-width: 52px;
-    }
-    .cd-unit .num {
-      font-size: 20px;
-      font-weight: 800;
-      line-height: 1;
-      display: block;
-      font-variant-numeric: tabular-nums;
-    }
-    .cd-unit .lbl { font-size: 9px; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .5px; }
-    .cd-sep { font-size: 20px; font-weight: 800; opacity: .6; animation: blink 1s step-end infinite; }
-    @keyframes blink { 50% { opacity: 0; } }
-    .countdown-bar .cb-info { margin-left: auto; font-size: 12px; opacity: .7; }
-
-    /* ══ BANNER STRIP ══ */
-    .banner-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-    .strip-card {
-      border-radius: var(--radius);
-      padding: 20px 22px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      cursor: pointer;
-      transition: transform .25s, box-shadow .25s;
+      padding: 80px 24px 60px;
       position: relative;
       overflow: hidden;
     }
-    .strip-card::before {
+    .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(255,255,255,.06);
-      opacity: 0;
-      transition: opacity .25s;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(0,113,227,.35) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .strip-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-    .strip-card:hover::before { opacity: 1; }
-    .strip-card .s-icon { font-size: 38px; flex-shrink: 0; filter: drop-shadow(0 4px 6px rgba(0,0,0,.2)); }
-    .strip-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
-    .strip-card small { font-size: 12px; opacity: .85; display: block; }
-
-    /* ══ SECTION TITLE ══ */
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-    .section-title h2 {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -.3px;
-    }
-    .section-title .pill {
-      background: #fff2cc;
-      color: #b45309;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 99px;
-      letter-spacing: .3px;
-      text-transform: uppercase;
-    }
-    .section-title a {
-      margin-left: auto;
-      font-size: 13px;
+    .hero-eyebrow {
+      font-size: 17px;
       font-weight: 600;
       color: var(--blue);
-      text-decoration: none;
+      letter-spacing: .01em;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp .8s .1s ease forwards;
+    }
+    .hero h1 {
+      font-size: clamp(44px, 7vw, 80px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      color: #f5f5f7;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp .8s .25s ease forwards;
+    }
+    .hero h1 span { color: var(--blue); }
+    .hero-sub {
+      font-size: clamp(17px, 2.2vw, 22px);
+      font-weight: 300;
+      color: #a1a1a6;
+      max-width: 540px;
+      line-height: 1.55;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp .8s .4s ease forwards;
+    }
+    .hero-actions {
       display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp .8s .55s ease forwards;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px 26px;
+      border-radius: 980px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--blue-h); transform: scale(1.03); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px 26px;
+      border-radius: 980px;
+      border: 1.5px solid var(--blue);
+      text-decoration: none;
+      transition: background .2s, color .2s, transform .2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { background: var(--blue); color: #fff; transform: scale(1.03); }
+
+    .hero-product {
+      font-size: clamp(120px, 18vw, 200px);
+      margin-top: 50px;
+      opacity: 0;
+      animation: fadeUp 1s .7s ease forwards, floatEmoji 5s 1.7s ease-in-out infinite;
+      filter: drop-shadow(0 40px 60px rgba(0,113,227,.4));
+      line-height: 1;
+    }
+    @keyframes floatEmoji {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-18px); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════ SECTION BASE ═══════════════════════ */
+    section { padding: 100px 24px; }
+    .section-center {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .section-h {
+      font-size: clamp(28px, 4.5vw, 52px);
+      font-weight: 800;
+      letter-spacing: -.025em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-p {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* ═══════════════════════ COUNTDOWN ═══════════════════════ */
+    .countdown-section {
+      background: var(--off);
+      padding: 60px 24px;
+    }
+    .countdown-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .countdown-inner .left { flex: 1; min-width: 240px; }
+    .countdown-inner .left p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-weight: 400;
+    }
+    .cd-units {
+      display: flex;
+      gap: 12px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+    .cd-block {
+      text-align: center;
+      background: var(--white);
+      border-radius: 14px;
+      padding: 16px 22px;
+      min-width: 72px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    .cd-block .n {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1;
+      display: block;
+      font-variant-numeric: tabular-nums;
+      color: var(--black);
+    }
+    .cd-block .l {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-top: 4px;
+      display: block;
+    }
+    .cd-colon { font-size: 28px; font-weight: 800; color: var(--muted); align-self: center; animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ═══════════════════════ FEATURES STRIP ═══════════════════════ */
+    .features-strip {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .feature-tile {
+      background: var(--white);
+      padding: 40px 32px;
+      text-align: center;
+      transition: background .25s;
+      cursor: default;
+    }
+    .feature-tile:hover { background: var(--off); }
+    .feature-tile .f-icon { font-size: 36px; margin-bottom: 14px; display: block; }
+    .feature-tile h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .feature-tile p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ═══════════════════════ PRODUCTS (Apple-style cards) ═══════════════════════ */
+    .products-section {
+      background: var(--off);
+      padding: 80px 24px;
+    }
+    .products-header {
+      max-width: var(--max);
+      margin: 0 auto 48px;
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+    }
+    .products-header .right { margin-left: auto; }
+    .see-all {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--blue);
+      text-decoration: none;
+      display: inline-flex;
       align-items: center;
       gap: 4px;
       transition: gap .2s;
     }
-    .section-title a:hover { gap: 8px; }
-
-    /* ══ PRODUCT SECTION ══ */
-    .product-section {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.06);
-    }
+    .see-all:hover { gap: 8px; }
 
     .product-grid {
+      max-width: var(--max);
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
     }
 
     .product-card {
       background: var(--white);
-      border-radius: 10px;
-      padding: 16px;
-      cursor: pointer;
-      transition: transform .25s, box-shadow .25s;
+      border-radius: var(--radius);
+      overflow: hidden;
       text-decoration: none;
       color: inherit;
-      border: 1.5px solid #f0f0f0;
       display: flex;
       flex-direction: column;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
       position: relative;
-      overflow: hidden;
-    }
-    .product-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(52,131,250,.04), transparent);
-      opacity: 0;
-      transition: opacity .3s;
+      cursor: pointer;
     }
     .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
-      border-color: #d1e3ff;
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 24px 60px rgba(0,0,0,.14);
     }
-    .product-card:hover::before { opacity: 1; }
 
-    .product-img {
-      width: 100%;
+    .card-img {
       aspect-ratio: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 62px;
-      background: linear-gradient(135deg, #f8faff, #eef2ff);
-      border-radius: 8px;
-      margin-bottom: 14px;
-      transition: transform .3s;
+      font-size: 72px;
+      background: var(--off);
+      transition: transform .4s ease;
     }
-    .product-card:hover .product-img { transform: scale(1.06); }
+    .product-card:hover .card-img { transform: scale(1.08); }
 
-    .wishlist-btn {
-      position: absolute;
-      top: 10px; right: 10px;
-      width: 30px; height: 30px;
-      background: rgba(255,255,255,.9);
-      backdrop-filter: blur(4px);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
-      opacity: 0;
-      transition: opacity .2s, transform .2s;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,.12);
-    }
-    .product-card:hover .wishlist-btn { opacity: 1; }
-    .wishlist-btn:hover { transform: scale(1.2); }
-    .wishlist-btn.active { opacity: 1; }
+    .card-body { padding: 18px 18px 20px; flex: 1; display: flex; flex-direction: column; }
 
-    .badge-free {
+    .card-badge {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       font-size: 10px;
       font-weight: 700;
       color: var(--green);
-      margin-bottom: 6px;
-      letter-spacing: .2px;
+      letter-spacing: .02em;
+      margin-bottom: 8px;
     }
-    .badge-free::before { content: '▶'; font-size: 8px; }
 
-    .product-name {
-      font-size: 13px;
-      color: #374151;
-      margin-bottom: 10px;
+    .card-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--black);
       line-height: 1.45;
       flex: 1;
+      margin-bottom: 14px;
     }
 
-    .old-price { font-size: 11px; color: #9ca3af; text-decoration: line-through; margin-bottom: 2px; }
+    .card-old { font-size: 12px; color: var(--muted); text-decoration: line-through; margin-bottom: 4px; }
 
-    .price-row { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
-    .price {
+    .card-price {
       font-size: 22px;
       font-weight: 700;
-      color: var(--text);
-      letter-spacing: -.5px;
+      letter-spacing: -.04em;
+      line-height: 1;
+      color: var(--black);
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
     }
-    .price .currency { font-size: 13px; font-weight: 500; vertical-align: top; margin-top: 3px; display: inline-block; }
-    .discount-badge {
-      background: #dcfce7;
-      color: #15803d;
+    .card-price .sym { font-size: 14px; font-weight: 500; margin-top: 2px; align-self: flex-start; }
+    .card-tag {
       font-size: 11px;
       font-weight: 700;
-      padding: 2px 7px;
+      background: #e8f9ef;
+      color: var(--green);
+      padding: 3px 8px;
       border-radius: 99px;
+      white-space: nowrap;
     }
+    .card-install { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
-    .installment { font-size: 12px; color: var(--green); margin-top: 5px; font-weight: 500; }
-
-    .stars {
+    .card-stars {
       display: flex;
       align-items: center;
       gap: 4px;
       margin-top: 10px;
     }
-    .stars-icons { color: #facc15; font-size: 11px; letter-spacing: 1px; }
-    .stars-count { font-size: 11px; color: #9ca3af; }
+    .card-stars .s { color: #f59e0b; font-size: 11px; }
+    .card-stars .c { font-size: 11px; color: var(--muted); }
 
-    /* ══ PROGRESS BAR (for deals) ══ */
-    .deal-progress {
-      margin-top: 10px;
-    }
-    .deal-progress-label {
-      font-size: 10px;
-      color: #9ca3af;
-      margin-bottom: 4px;
+    .card-progress { margin-top: 12px; }
+    .cp-label {
       display: flex;
       justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 5px;
     }
-    .deal-progress-label span { color: #e53935; font-weight: 600; }
-    .progress-track {
-      height: 5px;
-      background: #f0f0f0;
+    .cp-label strong { color: #c94b4b; }
+    .cp-track {
+      height: 4px;
+      background: #e5e5ea;
       border-radius: 99px;
       overflow: hidden;
     }
-    .progress-fill {
+    .cp-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--green), #22c55e);
+      background: linear-gradient(90deg, #30d158, #25c244);
       border-radius: 99px;
-      transition: width 1s ease;
     }
 
-    /* ══ TOAST ══ */
-    #toast {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: #1a1a2e;
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 99px;
-      font-size: 13px;
-      font-weight: 600;
-      z-index: 999;
-      pointer-events: none;
-      transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .35s;
+    .wish-btn {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(6px);
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
       opacity: 0;
+      transform: scale(.8);
+      transition: opacity .2s, transform .2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+    .product-card:hover .wish-btn,
+    .wish-btn.on { opacity: 1; transform: scale(1); }
+
+    /* ═══════════════════════ FULL-BLEED FEATURE ═══════════════════════ */
+    .feature-full {
+      min-height: 600px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 8px 32px rgba(0,0,0,.3);
-      white-space: nowrap;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px;
+      position: relative;
+      overflow: hidden;
     }
-    #toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
+    .feature-full.dark { background: var(--black); color: #f5f5f7; }
+    .feature-full.dark .section-p { color: #a1a1a6; }
+    .feature-full.light { background: var(--white); }
+    .feature-full.tinted { background: var(--off); }
+
+    .feature-full .bg-emoji {
+      position: absolute;
+      font-size: clamp(200px, 30vw, 380px);
+      opacity: .06;
+      pointer-events: none;
+      animation: floatEmoji 8s ease-in-out infinite;
+      filter: blur(2px);
+    }
+    .feature-full .content { position: relative; max-width: 680px; }
+
+    .big-stat {
+      font-size: clamp(60px, 10vw, 110px);
+      font-weight: 900;
+      letter-spacing: -.05em;
+      line-height: 1;
+      margin: 10px 0;
+    }
+    .big-stat span { color: var(--blue); }
+
+    /* ═══════════════════════ DEALS TICKER ═══════════════════════ */
+    .ticker-wrap {
+      background: var(--black);
+      overflow: hidden;
+      padding: 14px 0;
+    }
+    .ticker {
+      display: flex;
+      gap: 48px;
+      animation: ticker 22s linear infinite;
+      width: max-content;
+    }
+    .ticker-item {
+      font-size: 13px;
+      font-weight: 500;
+      color: #a1a1a6;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ticker-item .dot { width: 5px; height: 5px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
-    /* ══ REVEAL ANIMATION ══ */
+    /* ═══════════════════════ TOAST ═══════════════════════ */
+    #toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: rgba(29,29,31,.92);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 999;
+      pointer-events: none;
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1), opacity .4s;
+      opacity: 0;
+      white-space: nowrap;
+      box-shadow: 0 8px 40px rgba(0,0,0,.35);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* ═══════════════════════ REVEAL ═══════════════════════ */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity .6s ease, transform .6s ease;
+      transform: translateY(36px);
+      transition: opacity .7s ease, transform .7s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
 
-    /* ══ FOOTER ══ */
+    /* ═══════════════════════ FOOTER ═══════════════════════ */
     footer {
-      background: var(--white);
-      border-top: 1px solid #e8e8e8;
-      margin-top: 10px;
+      background: var(--off);
+      border-top: 1px solid var(--border);
     }
-    .footer-inner {
-      max-width: 1280px;
+    .footer-top {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 48px 24px 32px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
+      grid-template-columns: repeat(4,1fr);
+      gap: 24px;
     }
-    .footer-col h4 {
-      font-size: 13px;
+    .footer-col h5 {
+      font-size: 12px;
       font-weight: 700;
-      color: var(--text);
-      margin-bottom: 16px;
+      letter-spacing: .06em;
       text-transform: uppercase;
-      letter-spacing: .5px;
+      color: var(--black);
+      margin-bottom: 14px;
     }
     .footer-col a {
       display: block;
       font-size: 13px;
       color: var(--muted);
       text-decoration: none;
-      margin-bottom: 10px;
-      transition: color .2s, padding-left .2s;
+      margin-bottom: 9px;
+      transition: color .2s;
     }
-    .footer-col a:hover { color: var(--blue); padding-left: 4px; }
-
+    .footer-col a:hover { color: var(--blue); }
     .footer-bottom {
-      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 16px 24px;
       text-align: center;
-      padding: 16px;
       font-size: 12px;
       color: var(--muted);
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    /* ══ RESPONSIVE ══ */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-side { flex-direction: row; }
-      .banner-strip { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
+    /* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+    @media (max-width: 860px) {
+      .features-strip { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .countdown-inner { flex-direction: column; align-items: flex-start; }
+      .cd-units { margin-left: 0; }
+      .nav-links { display: none; }
     }
-    @media (max-width: 600px) {
-      .header-actions .extra { display: none; }
-      .hero-main h1 { font-size: 22px; }
-      .hero-side { flex-direction: column; }
-      .footer-inner { grid-template-columns: 1fr; }
-      .countdown-bar { flex-wrap: wrap; }
+    @media (max-width: 540px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+      .nav-search input { width: 90px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══════════ HEADER ══════════ -->
-<header id="site-header">
-  <div class="header-top">
-    <a href="#" class="logo">Mercado<span>Shop</span></a>
-    <div class="search-bar">
-      <input type="text" placeholder="Buscar produtos, marcas e muito mais…" id="search-input" />
-      <button>🔍</button>
-    </div>
-    <div class="header-actions">
-      <a href="#" class="extra">Entrar</a>
-      <a href="#" class="extra">Criar conta</a>
-      <a href="#" class="extra">Minhas compras</a>
-      <a href="#" class="btn-cart" id="cart-btn" style="position:relative">
-        🛒 Carrinho
-        <span class="cart-badge" id="cart-badge">0</span>
-      </a>
-    </div>
-  </div>
-</header>
+<!-- ════ PROMO STRIP ════ -->
+<div class="promo-strip">
+  Frete grátis em compras acima de R$ 299 · <a href="#">Ver condições</a>
+</div>
 
-<!-- ══════════ NAV ══════════ -->
-<nav>
+<!-- ════ NAV ════ -->
+<nav id="nav">
   <div class="nav-inner">
-    <a href="#">Categorias</a>
-    <a href="#">Ofertas do Dia</a>
-    <a href="#">Supermercado</a>
-    <a href="#">Moda</a>
-    <a href="#">Eletrônicos</a>
-    <a href="#">Games</a>
-    <a href="#">Livros</a>
-    <a href="#">Esporte e Lazer</a>
-    <a href="#">Beleza e Saúde</a>
-    <a href="#">Casa e Jardim</a>
-    <a href="#">Bebês</a>
-    <a href="#">Mais</a>
+    <a class="nav-logo" href="#">Mercado<em>Shop</em></a>
+    <div class="nav-links">
+      <a href="#">Eletrônicos</a>
+      <a href="#">Moda</a>
+      <a href="#">Casa</a>
+      <a href="#">Esporte</a>
+      <a href="#">Ofertas</a>
+    </div>
+    <div class="nav-search">
+      <span>🔍</span>
+      <input type="text" id="srch" placeholder="Buscar…" />
+    </div>
+    <div class="nav-cart" id="nav-cart">
+      🛒
+      <div class="nav-cart-badge" id="cart-badge">0</div>
+    </div>
   </div>
 </nav>
 
-<!-- ══════════ MAIN ══════════ -->
-<main>
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <p class="hero-eyebrow">Tudo que você precisa, em um lugar só.</p>
+  <h1>O melhor de<br><span>tecnologia</span><br>por menos.</h1>
+  <p class="hero-sub">Até 60% OFF em eletrônicos, moda, casa e muito mais. Frete grátis em milhares de produtos.</p>
+  <div class="hero-actions">
+    <a href="#deals" class="btn-primary">Ver ofertas do dia</a>
+    <a href="#products" class="btn-ghost">Explorar produtos</a>
+  </div>
+  <div class="hero-product">📦</div>
+</section>
 
-  <!-- HERO -->
-  <div class="hero reveal">
-    <div class="hero-main">
-      <div class="hero-emoji">📦</div>
-      <div class="hero-tag"><span class="dot"></span> Oferta relâmpago</div>
-      <h1>Até 60% OFF em<br>Eletrônicos</h1>
-      <p>Smartphones, notebooks, fones e muito mais com frete grátis.</p>
-      <a href="#" class="btn-hero">Ver todas as ofertas</a>
+<!-- ════ TICKER ════ -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item"><span class="dot"></span> Smartphones até 40% OFF</div>
+    <div class="ticker-item"><span class="dot"></span> Frete Grátis em milhares de itens</div>
+    <div class="ticker-item"><span class="dot"></span> Notebook a partir de R$ 2.799</div>
+    <div class="ticker-item"><span class="dot"></span> Pague em 12x sem juros</div>
+    <div class="ticker-item"><span class="dot"></span> PS5 com desconto exclusivo</div>
+    <div class="ticker-item"><span class="dot"></span> Air Fryer 31% OFF hoje</div>
+    <div class="ticker-item"><span class="dot"></span> Compra 100% garantida</div>
+    <!-- dup para loop contínuo -->
+    <div class="ticker-item"><span class="dot"></span> Smartphones até 40% OFF</div>
+    <div class="ticker-item"><span class="dot"></span> Frete Grátis em milhares de itens</div>
+    <div class="ticker-item"><span class="dot"></span> Notebook a partir de R$ 2.799</div>
+    <div class="ticker-item"><span class="dot"></span> Pague em 12x sem juros</div>
+    <div class="ticker-item"><span class="dot"></span> PS5 com desconto exclusivo</div>
+    <div class="ticker-item"><span class="dot"></span> Air Fryer 31% OFF hoje</div>
+    <div class="ticker-item"><span class="dot"></span> Compra 100% garantida</div>
+  </div>
+</div>
+
+<!-- ════ COUNTDOWN ════ -->
+<div class="countdown-section" id="deals">
+  <div class="countdown-inner reveal">
+    <div class="left">
+      <div class="eyebrow">Oferta relâmpago</div>
+      <div class="section-h" style="font-size:clamp(24px,3.5vw,38px)">Termina hoje à meia-noite</div>
+      <p>Mais de 1.200 produtos com desconto exclusivo por tempo limitado.</p>
     </div>
-    <div class="hero-side">
-      <div class="hero-card yellow">
-        <span class="card-emoji">👗</span>
-        <h3>Moda até 50% OFF</h3>
-        <p>Roupas, calçados e acessórios</p>
+    <div class="cd-units">
+      <div class="cd-block"><span class="n" id="cd-h">00</span><span class="l">horas</span></div>
+      <span class="cd-colon">:</span>
+      <div class="cd-block"><span class="n" id="cd-m">00</span><span class="l">min</span></div>
+      <span class="cd-colon">:</span>
+      <div class="cd-block"><span class="n" id="cd-s">00</span><span class="l">seg</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ FEATURES STRIP ════ -->
+<div class="features-strip reveal">
+  <div class="feature-tile">
+    <span class="f-icon">💳</span>
+    <h4>Parcele em até 12x</h4>
+    <p>Sem juros no cartão com Mercado Pago</p>
+  </div>
+  <div class="feature-tile">
+    <span class="f-icon">🚚</span>
+    <h4>Frete Grátis</h4>
+    <p>Em milhares de produtos com Mercado Envios</p>
+  </div>
+  <div class="feature-tile">
+    <span class="f-icon">🔒</span>
+    <h4>Compra Garantida</h4>
+    <p>Receba como prometido ou devolvemos seu dinheiro</p>
+  </div>
+</div>
+
+<!-- ════ FEATURE: BIG STAT (dark) ════ -->
+<div class="feature-full dark reveal">
+  <div class="bg-emoji">⚡</div>
+  <div class="content">
+    <div class="eyebrow">Economia real</div>
+    <div class="big-stat">Até <span>60%</span><br>de desconto.</div>
+    <p class="section-p" style="margin: 20px auto 32px; text-align:center">Eletrônicos, moda, casa, esporte e muito mais com os melhores preços do mercado.</p>
+    <a href="#products" class="btn-primary">Explorar agora</a>
+  </div>
+</div>
+
+<!-- ════ DEALS (Ofertas do Dia) ════ -->
+<div class="products-section" id="products">
+  <div class="products-header reveal">
+    <div>
+      <div class="eyebrow">Ofertas do dia</div>
+      <div class="section-h">Destaques de hoje.</div>
+    </div>
+    <div class="right">
+      <a href="#" class="see-all">Ver tudo →</a>
+    </div>
+  </div>
+
+  <div class="product-grid">
+
+    <div class="product-card reveal" data-name="Samsung Galaxy A55 5G">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">📱</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Smartphone Samsung Galaxy A55 5G 256GB 8GB RAM</div>
+        <div class="card-old">R$ 2.199,99</div>
+        <div class="card-price"><span class="sym">R$</span> 1.649<span style="font-size:15px">,99</span><span class="card-tag">25% OFF</span></div>
+        <div class="card-install">em 12x de R$ 137,49</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(2.341)</span></div>
+        <div class="card-progress">
+          <div class="cp-label"><strong>🔥 Quase esgotado</strong><span>83%</span></div>
+          <div class="cp-track"><div class="cp-fill" style="width:83%"></div></div>
+        </div>
       </div>
-      <div class="hero-card green">
-        <span class="card-emoji">🚚</span>
-        <h3>Frete Grátis</h3>
-        <p>Em milhares de produtos Mercado Envios</p>
+    </div>
+
+    <div class="product-card reveal" data-name="Notebook Lenovo IdeaPad 15&quot;">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">💻</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Notebook Lenovo IdeaPad 15" Intel i5 16GB SSD 512GB</div>
+        <div class="card-old">R$ 3.499,00</div>
+        <div class="card-price"><span class="sym">R$</span> 2.799<span style="font-size:15px">,00</span><span class="card-tag">20% OFF</span></div>
+        <div class="card-install">em 12x de R$ 233,25</div>
+        <div class="card-stars"><span class="s">★★★★☆</span><span class="c">(876)</span></div>
+        <div class="card-progress">
+          <div class="cp-label"><strong>🔥 Alta demanda</strong><span>61%</span></div>
+          <div class="cp-track"><div class="cp-fill" style="width:61%"></div></div>
+        </div>
       </div>
     </div>
+
+    <div class="product-card reveal" data-name="Sony WH-1000XM5">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">🎧</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Fone Bluetooth Sony WH-1000XM5 Cancelamento de Ruído</div>
+        <div class="card-old">R$ 1.999,00</div>
+        <div class="card-price"><span class="sym">R$</span> 1.299<span style="font-size:15px">,00</span><span class="card-tag">35% OFF</span></div>
+        <div class="card-install">em 12x de R$ 108,25</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(1.520)</span></div>
+        <div class="card-progress">
+          <div class="cp-label"><strong>🔥 Quase esgotado</strong><span>91%</span></div>
+          <div class="cp-track"><div class="cp-fill" style="width:91%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal" data-name="Smart TV LG 55&quot; 4K OLED">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">📺</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Smart TV LG 55" 4K OLED evo ThinQ AI WebOS</div>
+        <div class="card-old">R$ 5.799,00</div>
+        <div class="card-price"><span class="sym">R$</span> 3.999<span style="font-size:15px">,00</span><span class="card-tag">31% OFF</span></div>
+        <div class="card-install">em 12x de R$ 333,25</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(643)</span></div>
+        <div class="card-progress">
+          <div class="cp-label"><strong>🔥 Alta demanda</strong><span>54%</span></div>
+          <div class="cp-track"><div class="cp-fill" style="width:54%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal" data-name="Apple Watch Series 9">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">⌚</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Smartwatch Apple Watch Series 9 GPS 45mm Alumínio</div>
+        <div class="card-old">R$ 3.299,00</div>
+        <div class="card-price"><span class="sym">R$</span> 2.649<span style="font-size:15px">,00</span><span class="card-tag">20% OFF</span></div>
+        <div class="card-install">em 12x de R$ 220,75</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(3.102)</span></div>
+        <div class="card-progress">
+          <div class="cp-label"><strong>🔥 Quase esgotado</strong><span>78%</span></div>
+          <div class="cp-track"><div class="cp-fill" style="width:78%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal" data-name="PlayStation 5 + 2 Controles">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">🎮</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Console PlayStation 5 Sony + 2 Controles DualSense</div>
+        <div class="card-old">R$ 4.499,00</div>
+        <div class="card-price"><span class="sym">R$</span> 3.799<span style="font-size:15px">,00</span><span class="card-tag">16% OFF</span></div>
+        <div class="card-install">em 12x de R$ 316,58</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(4.789)</span></div>
+        <div class="card-progress">
+          <div class="cp-label"><strong>🔥 Alta demanda</strong><span>69%</span></div>
+          <div class="cp-track"><div class="cp-fill" style="width:69%"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ FEATURE: FRETE (light) ════ -->
+<div class="feature-full light reveal">
+  <div class="bg-emoji">🚚</div>
+  <div class="content">
+    <div class="eyebrow">Mercado Envios</div>
+    <div class="section-h" style="font-size:clamp(32px,5vw,64px)">Frete grátis.<br>De verdade.</div>
+    <p class="section-p" style="margin: 20px auto 32px; text-align:center; max-width:480px">Mais de 3 milhões de produtos com entrega gratuita em todo o Brasil.</p>
+    <a href="#" class="btn-primary">Saiba mais</a>
+  </div>
+</div>
+
+<!-- ════ MAIS VENDIDOS ════ -->
+<div class="products-section">
+  <div class="products-header reveal">
+    <div>
+      <div class="eyebrow">Mais vendidos</div>
+      <div class="section-h">Os favoritos do momento.</div>
+    </div>
+    <div class="right"><a href="#" class="see-all">Ver mais →</a></div>
   </div>
 
-  <!-- COUNTDOWN -->
-  <div class="countdown-bar reveal">
-    <div class="cb-label"><span class="lightning">⚡</span> Termina em:</div>
-    <div class="countdown-units">
-      <div class="cd-unit"><span class="num" id="cd-h">00</span><span class="lbl">horas</span></div>
-      <span class="cd-sep">:</span>
-      <div class="cd-unit"><span class="num" id="cd-m">00</span><span class="lbl">min</span></div>
-      <span class="cd-sep">:</span>
-      <div class="cd-unit"><span class="num" id="cd-s">00</span><span class="lbl">seg</span></div>
+  <div class="product-grid">
+
+    <div class="product-card reveal" data-name="Tênis Nike Air Max 270">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">👟</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Tênis Nike Air Max 270 Masculino Original</div>
+        <div class="card-price"><span class="sym">R$</span> 599<span style="font-size:15px">,99</span></div>
+        <div class="card-install">em 10x de R$ 59,99</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(5.234)</span></div>
+      </div>
     </div>
-    <div class="cb-info">🔥 Mais de 1.200 produtos com desconto</div>
+
+    <div class="product-card reveal" data-name="Monitor Gamer LG 27&quot; 144Hz">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">🖥️</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Monitor Gamer 27" LG Full HD 144Hz IPS 1ms</div>
+        <div class="card-old">R$ 1.499,00</div>
+        <div class="card-price"><span class="sym">R$</span> 999<span style="font-size:15px">,00</span><span class="card-tag">33% OFF</span></div>
+        <div class="card-install">em 12x de R$ 83,25</div>
+        <div class="card-stars"><span class="s">★★★★☆</span><span class="c">(1.876)</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal" data-name="Air Fryer Philips Walita XXL">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">🍳</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Air Fryer Philips Walita XXL Digital 7,3L 2000W</div>
+        <div class="card-old">R$ 799,00</div>
+        <div class="card-price"><span class="sym">R$</span> 549<span style="font-size:15px">,90</span><span class="card-tag">31% OFF</span></div>
+        <div class="card-install">em 10x de R$ 54,99</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(7.654)</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal" data-name="Câmera Canon EOS R50">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">📷</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Câmera Canon EOS R50 Mirrorless 24.2MP Kit 18-45mm</div>
+        <div class="card-old">R$ 4.999,00</div>
+        <div class="card-price"><span class="sym">R$</span> 3.899<span style="font-size:15px">,00</span><span class="card-tag">22% OFF</span></div>
+        <div class="card-install">em 12x de R$ 324,91</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(987)</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal" data-name="Kit Halter Musculação 20kg">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">🏋️</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Kit Halter Musculação 20kg Emborrachado com Suporte</div>
+        <div class="card-price"><span class="sym">R$</span> 349<span style="font-size:15px">,90</span></div>
+        <div class="card-install">em 6x de R$ 58,31</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(2.109)</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal" data-name="Mochila Notebook 30L">
+      <button class="wish-btn" onclick="wish(event,this)">🤍</button>
+      <div class="card-img">🎒</div>
+      <div class="card-body">
+        <div class="card-badge">▶ Frete grátis</div>
+        <div class="card-name">Mochila Notebook Masculina Impermeável 30L USB Carregador</div>
+        <div class="card-price"><span class="sym">R$</span> 149<span style="font-size:15px">,90</span></div>
+        <div class="card-install">em 3x de R$ 49,96</div>
+        <div class="card-stars"><span class="s">★★★★★</span><span class="c">(3.421)</span></div>
+      </div>
+    </div>
+
   </div>
+</div>
 
-  <!-- BANNER STRIP -->
-  <div class="banner-strip reveal">
-    <div class="strip-card" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">
-      <div class="s-icon">💳</div>
-      <div><h4>Mercado Pago</h4><small>Pague em até 12x sem juros</small></div>
-    </div>
-    <div class="strip-card" style="background:linear-gradient(135deg,#059669,#047857)">
-      <div class="s-icon">🚚</div>
-      <div><h4>Frete Grátis</h4><small>Em milhares de produtos</small></div>
-    </div>
-    <div class="strip-card" style="background:linear-gradient(135deg,#d97706,#b45309)">
-      <div class="s-icon">🔒</div>
-      <div><h4>Compra Garantida</h4><small>Receba ou devolvemos seu dinheiro</small></div>
-    </div>
-  </div>
-
-  <!-- OFERTAS DO DIA -->
-  <div class="product-section reveal">
-    <div class="section-title">
-      <h2>⚡ Ofertas do dia</h2>
-      <span class="pill">Acaba hoje</span>
-      <a href="#">Ver todas →</a>
-    </div>
-    <div class="product-grid">
-
-      <a href="#" class="product-card" data-product="Smartphone Samsung Galaxy A55">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">📱</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Smartphone Samsung Galaxy A55 5G 256GB 8GB RAM</div>
-        <div class="old-price">R$ 2.199,99</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 1.649<span style="font-size:14px">,99</span></div>
-          <span class="discount-badge">25% OFF</span>
-        </div>
-        <div class="installment">em 12x de R$ 137,49</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(2.341)</span></div>
-        <div class="deal-progress">
-          <div class="deal-progress-label"><span>🔥 Quase esgotado!</span> 83%</div>
-          <div class="progress-track"><div class="progress-fill" style="width:83%"></div></div>
-        </div>
-      </a>
-
-      <a href="#" class="product-card" data-product="Notebook Lenovo IdeaPad">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">💻</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Notebook Lenovo IdeaPad 15" Intel i5 16GB SSD 512GB</div>
-        <div class="old-price">R$ 3.499,00</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 2.799<span style="font-size:14px">,00</span></div>
-          <span class="discount-badge">20% OFF</span>
-        </div>
-        <div class="installment">em 12x de R$ 233,25</div>
-        <div class="stars"><span class="stars-icons">★★★★☆</span><span class="stars-count">(876)</span></div>
-        <div class="deal-progress">
-          <div class="deal-progress-label"><span>🔥 Alta demanda</span> 61%</div>
-          <div class="progress-track"><div class="progress-fill" style="width:61%"></div></div>
-        </div>
-      </a>
-
-      <a href="#" class="product-card" data-product="Fone Sony WH-1000XM5">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">🎧</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Fone Bluetooth Sony WH-1000XM5 Cancelamento de Ruído</div>
-        <div class="old-price">R$ 1.999,00</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 1.299<span style="font-size:14px">,00</span></div>
-          <span class="discount-badge">35% OFF</span>
-        </div>
-        <div class="installment">em 12x de R$ 108,25</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(1.520)</span></div>
-        <div class="deal-progress">
-          <div class="deal-progress-label"><span>🔥 Quase esgotado!</span> 91%</div>
-          <div class="progress-track"><div class="progress-fill" style="width:91%"></div></div>
-        </div>
-      </a>
-
-      <a href="#" class="product-card" data-product="Smart TV LG 55 OLED">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">📺</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Smart TV LG 55" 4K OLED evo ThinQ AI WebOS</div>
-        <div class="old-price">R$ 5.799,00</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 3.999<span style="font-size:14px">,00</span></div>
-          <span class="discount-badge">31% OFF</span>
-        </div>
-        <div class="installment">em 12x de R$ 333,25</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(643)</span></div>
-        <div class="deal-progress">
-          <div class="deal-progress-label"><span>🔥 Alta demanda</span> 54%</div>
-          <div class="progress-track"><div class="progress-fill" style="width:54%"></div></div>
-        </div>
-      </a>
-
-      <a href="#" class="product-card" data-product="Apple Watch Series 9">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">⌚</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Smartwatch Apple Watch Series 9 GPS 45mm Alumínio</div>
-        <div class="old-price">R$ 3.299,00</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 2.649<span style="font-size:14px">,00</span></div>
-          <span class="discount-badge">20% OFF</span>
-        </div>
-        <div class="installment">em 12x de R$ 220,75</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(3.102)</span></div>
-        <div class="deal-progress">
-          <div class="deal-progress-label"><span>🔥 Quase esgotado!</span> 78%</div>
-          <div class="progress-track"><div class="progress-fill" style="width:78%"></div></div>
-        </div>
-      </a>
-
-      <a href="#" class="product-card" data-product="PlayStation 5">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">🎮</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Console PlayStation 5 Sony + 2 Controles DualSense</div>
-        <div class="old-price">R$ 4.499,00</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 3.799<span style="font-size:14px">,00</span></div>
-          <span class="discount-badge">16% OFF</span>
-        </div>
-        <div class="installment">em 12x de R$ 316,58</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(4.789)</span></div>
-        <div class="deal-progress">
-          <div class="deal-progress-label"><span>🔥 Alta demanda</span> 69%</div>
-          <div class="progress-track"><div class="progress-fill" style="width:69%"></div></div>
-        </div>
-      </a>
-
-    </div>
-  </div>
-
-  <!-- MAIS VENDIDOS -->
-  <div class="product-section reveal">
-    <div class="section-title">
-      <h2>🔥 Mais Vendidos</h2>
-      <a href="#">Ver mais →</a>
-    </div>
-    <div class="product-grid">
-
-      <a href="#" class="product-card" data-product="Tênis Nike Air Max 270">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">👟</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Tênis Nike Air Max 270 Masculino Original</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 599<span style="font-size:14px">,99</span></div>
-        </div>
-        <div class="installment">em 10x de R$ 59,99</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(5.234)</span></div>
-      </a>
-
-      <a href="#" class="product-card" data-product="Monitor Gamer LG 27">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">🖥️</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Monitor Gamer 27" LG Full HD 144Hz IPS 1ms</div>
-        <div class="old-price">R$ 1.499,00</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 999<span style="font-size:14px">,00</span></div>
-          <span class="discount-badge">33% OFF</span>
-        </div>
-        <div class="installment">em 12x de R$ 83,25</div>
-        <div class="stars"><span class="stars-icons">★★★★☆</span><span class="stars-count">(1.876)</span></div>
-      </a>
-
-      <a href="#" class="product-card" data-product="Kit Halter Musculação 20kg">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">🏋️</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Kit Halter Musculação 20kg Emborrachado com Suporte</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 349<span style="font-size:14px">,90</span></div>
-        </div>
-        <div class="installment">em 6x de R$ 58,31</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(2.109)</span></div>
-      </a>
-
-      <a href="#" class="product-card" data-product="Câmera Canon EOS R50">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">📷</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Câmera Canon EOS R50 Mirrorless 24.2MP Kit 18-45mm</div>
-        <div class="old-price">R$ 4.999,00</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 3.899<span style="font-size:14px">,00</span></div>
-          <span class="discount-badge">22% OFF</span>
-        </div>
-        <div class="installment">em 12x de R$ 324,91</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(987)</span></div>
-      </a>
-
-      <a href="#" class="product-card" data-product="Air Fryer Philips Walita">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">🍳</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Air Fryer Philips Walita XXL Digital 7,3L 2000W</div>
-        <div class="old-price">R$ 799,00</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 549<span style="font-size:14px">,90</span></div>
-          <span class="discount-badge">31% OFF</span>
-        </div>
-        <div class="installment">em 10x de R$ 54,99</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(7.654)</span></div>
-      </a>
-
-      <a href="#" class="product-card" data-product="Mochila Notebook Masculina">
-        <button class="wishlist-btn" onclick="toggleWish(event, this)">🤍</button>
-        <div class="product-img">🎒</div>
-        <div class="badge-free">Frete grátis</div>
-        <div class="product-name">Mochila Notebook Masculina Impermeável 30L USB Carregador</div>
-        <div class="price-row">
-          <div class="price"><span class="currency">R$</span> 149<span style="font-size:14px">,90</span></div>
-        </div>
-        <div class="installment">em 3x de R$ 49,96</div>
-        <div class="stars"><span class="stars-icons">★★★★★</span><span class="stars-count">(3.421)</span></div>
-      </a>
-
-    </div>
-  </div>
-
-</main>
-
-<!-- ══════════ FOOTER ══════════ -->
+<!-- ════ FOOTER ════ -->
 <footer>
-  <div class="footer-inner">
+  <div class="footer-top">
     <div class="footer-col">
-      <h4>Sobre nós</h4>
+      <h5>Sobre nós</h5>
       <a href="#">Quem somos</a>
       <a href="#">Trabalhe conosco</a>
       <a href="#">Sustentabilidade</a>
       <a href="#">Imprensa</a>
-      <a href="#">Blog</a>
     </div>
     <div class="footer-col">
-      <h4>Comprar</h4>
+      <h5>Comprar</h5>
       <a href="#">Como comprar</a>
-      <a href="#">Meios de pagamento</a>
+      <a href="#">Pagamentos</a>
       <a href="#">Promoções</a>
-      <a href="#">Lojas oficiais</a>
       <a href="#">Supermercado</a>
     </div>
     <div class="footer-col">
-      <h4>Vender</h4>
+      <h5>Vender</h5>
       <a href="#">Como vender</a>
-      <a href="#">Anuncie seus produtos</a>
-      <a href="#">Soluções para empresas</a>
+      <a href="#">Anunciar</a>
+      <a href="#">Para empresas</a>
       <a href="#">Central do Vendedor</a>
     </div>
     <div class="footer-col">
-      <h4>Ajuda</h4>
+      <h5>Suporte</h5>
       <a href="#">Central de ajuda</a>
       <a href="#">Fale conosco</a>
-      <a href="#">Segurança</a>
       <a href="#">Privacidade</a>
-      <a href="#">Termos e condições</a>
+      <a href="#">Termos</a>
     </div>
   </div>
   <div class="footer-bottom">
-    © 2026 MercadoShop — Todos os direitos reservados · CNPJ 00.000.000/0001-00
+    Copyright © 2026 MercadoShop. Todos os direitos reservados.
   </div>
 </footer>
 
@@ -1041,73 +1010,61 @@
 <div id="toast"></div>
 
 <script>
-  /* ── Header shadow on scroll ── */
-  const header = document.getElementById('site-header');
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 10);
-  });
-
   /* ── Scroll reveal ── */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  /* ── Countdown (ends at midnight) ── */
-  function updateCountdown() {
-    const now  = new Date();
-    const end  = new Date(); end.setHours(23, 59, 59, 999);
-    const diff = Math.max(0, end - now);
-    const h = Math.floor(diff / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
-    document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
-    document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+  /* ── Countdown ── */
+  function tick() {
+    const now = new Date(), end = new Date();
+    end.setHours(23,59,59,999);
+    const d = Math.max(0, end - now);
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('cd-h').textContent = pad(Math.floor(d/3600000));
+    document.getElementById('cd-m').textContent = pad(Math.floor(d%3600000/60000));
+    document.getElementById('cd-s').textContent = pad(Math.floor(d%60000/1000));
   }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  tick(); setInterval(tick, 1000);
+
+  /* ── Toast ── */
+  let toastTimer;
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
 
   /* ── Cart ── */
-  let cartCount = 0;
-  const cartBadge = document.getElementById('cart-badge');
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.innerHTML = '🛒 ' + msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2800);
-  }
-
-  document.querySelectorAll('.product-card').forEach(card => {
-    card.addEventListener('click', e => {
-      if (e.target.closest('.wishlist-btn')) return;
+  let count = 0;
+  const badge = document.getElementById('cart-badge');
+  document.querySelectorAll('.product-card').forEach(c => {
+    c.addEventListener('click', e => {
+      if (e.target.closest('.wish-btn')) return;
       e.preventDefault();
-      cartCount++;
-      cartBadge.textContent = cartCount;
-      cartBadge.style.animation = 'none';
-      requestAnimationFrame(() => { cartBadge.style.animation = ''; });
-      showToast(card.dataset.product + ' adicionado ao carrinho!');
+      badge.textContent = ++count;
+      badge.animate([{transform:'scale(1.8)',background:'#e53935'},{transform:'scale(1)',background:''}], {duration:350,easing:'cubic-bezier(.34,1.56,.64,1)'});
+      toast('🛒 ' + c.dataset.name + ' adicionado ao carrinho');
     });
   });
 
   /* ── Wishlist ── */
-  function toggleWish(e, btn) {
+  function wish(e, btn) {
     e.preventDefault();
-    const active = btn.classList.toggle('active');
-    btn.textContent = active ? '❤️' : '🤍';
-    if (active) showToast('Adicionado aos favoritos ✓');
+    const on = btn.classList.toggle('on');
+    btn.textContent = on ? '❤️' : '🤍';
+    if (on) toast('❤️ Adicionado aos favoritos');
   }
 
-  /* ── Search suggestion (cosmetic) ── */
-  const input = document.getElementById('search-input');
-  const suggestions = ['Smartphone', 'Notebook', 'Tênis', 'Fone Bluetooth', 'Smart TV', 'PlayStation'];
-  let si = 0;
+  /* ── Rotating search placeholder ── */
+  const hints = ['Buscar smartphones…','Buscar notebooks…','Buscar tênis…','Buscar câmeras…','Buscar games…'];
+  let hi = 0;
+  const srch = document.getElementById('srch');
   setInterval(() => {
-    if (document.activeElement !== input) {
-      input.setAttribute('placeholder', 'Buscar ' + suggestions[si % suggestions.length] + '…');
-      si++;
-    }
+    if (document.activeElement !== srch) srch.placeholder = hints[hi++ % hints.length];
   }, 2500);
 </script>
 
